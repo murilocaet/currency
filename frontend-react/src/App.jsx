@@ -41,6 +41,8 @@ function App() {
   
   const [refreshTime, setRefreshTime] = useState(10);
 
+  let publicAPI = "Public API >>>>> PUT http://server-name:8080/api/rate/rates?from=USD&to=BRL";
+
   Moment.locale('en');
 
   function loadCurrencies(){
@@ -473,7 +475,7 @@ function App() {
       </Row>
       <Row className="panel-row-api">
         <Col className="panel-col-api">
-          Public API >>>>> PUT http://server-name:8080/api/rate/rates?from=USD&to=BRL
+          {publicAPI}
         </Col>
       </Row>
     </Container>
