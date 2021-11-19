@@ -1,70 +1,184 @@
-# Getting Started with Create React App
+# Overview about the project
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project is about the creation of a Currency Exchange Converter using React as Front-end, Spring Boot JAVA as Backend, and Redis to store the data in cache.
 
 ## Available Scripts
 
-In the project directory, you can run:
+In the project you will see 2 directories: **backend-java** and **frontend-react**
 
-### `npm start`
+### frontend-react
 
-Runs the app in the development mode.\
+Enter into the **frontend-react** by the terminal and execute `npm start` to run the app.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+#### Dashboard
 
-### `npm test`
+In addition to the Currency Exchange Converter, a panel was implemented to visualize the data stored in Redis and its update schedules. Mouse over each panel block to see its description.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### backend-java
 
-### `npm run build`
+Open the Maven Project in an IDE of your preference and run it.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+In case of need Redis configuration, follow theses steps:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**Step 1: **Go into backend-java directory and unzip the file **Redis-x64-3.2.100.zip**
+**Step 2: **Move it to another directory and run **redis-server.exe**
+**Step 3: **Now run **redis-cli.exe** and type ping to test the connection
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+The services are running at http://your-server-host:8080/api/rate/
 
-### `npm run eject`
+#### Endpoints
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+All endpoints were coded to send only the necessary data to Front-end
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**GET findCurrencyData**
+.../api/rate/findCurrencyData
+**Response**
+{
+	"currencies": [
+	
+		{
+			"key": "USD",
+			"currencyName": "United States Dollar"
+		},
+		{
+			"key": "EUR",
+			"currencyName": "Euro"
+		},
+		{
+			"key": "GBP",
+			"currencyName": "British Pound"
+		},
+		{
+			"key": "BRL",
+			"currencyName": "Brazilian Real"
+		},
+		...
+	],
+	"note": ""
+}
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+**POST findHistoricalData**
+.../api/rate/findHistoricalData
+**payload**
+{
+	"functionRate": "FX_INTRADAY", # =>FX_INTRADAY, FX_DAILY, FX_WEEKLY, FX_MONTHLY
+	"refRate": "FIVE_MINUTES",  # => FIVE_MINUTES, SIXTY_MINUTES, DAILY, WEEKLY, MONTHLY, YEARLY
+	"fromSymbol": "USD",
+	"toSymbol": "EUR"
+}
+**Response**
+{
+	"min": 0.8785,
+	"max": 0.8858,
+	"rates": [
+		{
+			"key": "2021-11-18 16:05:00",
+			"value": 0.8808
+		},
+		{
+			"key": "2021-11-18 16:10:00",
+			"value": 0.8808
+		},
+		{
+			"key": "2021-11-18 16:15:00",
+			"value": 0.8808
+		},
+		...
+	],
+	"note": ""
+}
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**POST findCurrencyExchangeRate**
+.../api/rate/findCurrencyExchangeRate
+**payload**
+{
+	"from": "USD",
+	"to": "EUR"
+}
+**Response**
+{
+	"currencyExchange": {
+		"fromCurrency": "USD",
+		"fromCurrencyName": "United States Dollar",
+		"toCurrency": "EUR",
+		"toCurrencyName": "Euro",
+		"exchangeRate": 0.8848,
+		"lastRefreshed": "2021-11-19 11:15:01",
+		"timeZone": "UTC",
+		"bidPrice": 0.88479,
+		"askPrice": 0.88482
+	},
+	"note": "",
+	"success": "",
+	"error": ""
+}
 
-## Learn More
+**GET getPanelData**
+.../api/rate/getPanelData
+**Response**
+{
+	"exchangePoolList": [
+		"USDTOEUR",
+		"USDTOBRL",
+		"USDTOCLP"
+	],
+	"exchangePoolJobList": [
+		"USDTOBRL",
+		"USDTOEUR"
+	],
+	"exchangePoolJobForcedList": [
+		"USDTOBRL"
+	],
+	"historicalPoolList": [
+		"USDTOEUR::FX_INTRADAY::FIVE_MINUTES",
+		"USDTOBRL::FX_DAILY::DAILY",
+		"USDTOBRL::FX_WEEKLY::WEEKLY",
+		"USDTOEUR::FX_INTRADAY::SIXTY_MINUTES",
+		"USDTOBRL::FX_INTRADAY::FIVE_MINUTES",
+		"USDTOBRL::FX_MONTHLY::MONTHLY",
+		"USDTOBRL::FX_MONTHLY::YEARLY"
+	],
+	"historicalPoolJobList": [
+		"USDTOBRL::FX_INTRADAY::SIXTY_MINUTES",
+		"USDTOEUR::FX_INTRADAY::FIVE_MINUTES",
+	],
+	"note": ""
+}
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**PUT updateExchange**
+.../api/rate/updateExchange
+**payload**
+{
+	"from": "USD",
+	"to": "BRL"
+}
+**Response**
+{
+	"currencyExchange": null,
+	"note": "",
+	"success": "Currency Exchange added successfully!",
+	"error": ""
+}
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+**PUT rates**
+.../api/rate/rates?from=USD&to=BRL
+**Response**
+{
+	"currencyExchange": null,
+	"note": "",
+	"success": "Currency Exchange added successfully!",
+	"error": ""
+}
 
-### Code Splitting
+#### Tasks
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+There are 5 Schedules tasks: 
 
-### Analyzing the Bundle Size
+**ListenerSchedule: **Collect Currencies Exchange previously selected by Users and send it to the updating pool. Runs every 15 minutes.
+**JobSchedule: **Consumes the update pool. Triggers the search for new rates and store them in Redis. Runs every 5 minutes.
+**JobForcedSchedule: **Consumes the insertion pool. Triggers the search for new rates and store them in Redis. The user sends requests to this queue by the page form or by the API endpoint. Runs every minute.
+**ListenerHistoricalSchedule**Collect the historical Currencies Exchange previously selected by Users and send it to the updating pool. Runs every 1 hour.
+**JobHistoricalSchedule**Consumes the historical update pool. Triggers the search for new historical rates and store them in Redis. Runs every 20 minutes.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+The queue will consume only one item per time, always the first, and will remove it from the list.

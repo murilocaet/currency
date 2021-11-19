@@ -41,7 +41,7 @@ function App() {
   
   const [refreshTime, setRefreshTime] = useState(10);
 
-  let publicAPI = "Public API >>>>> PUT http://server-name:8080/api/rate/rates?from=USD&to=BRL";
+  let publicAPI = "Public API >>>>> PUT http://your-server-host:8080/api/rate/rates?from=USD&to=BRL";
 
   Moment.locale('en');
 
