@@ -18,12 +18,12 @@ export const findCurrencyExchangeRate  = (request) =>
   .then(({data}) => data)
   .catch(e => {});
 
-export const updateExchange2  = (request) => 
+export const updateExchange  = (request) => 
   axios.post(urlAPI + "/updateExchange" , JSON.stringify(request), environment.HEADER)
   .then(({data}) => data)
   .catch(e => {});
 
-export const updateExchange  = (request) => 
+export const updateExchange_Op2  = (request) => 
   axios.put(urlAPI + "/rates" , JSON.stringify(request), {
     headers: {
       'Content-Type': 'application/json',

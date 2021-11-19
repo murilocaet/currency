@@ -71,7 +71,7 @@ function App() {
         setExchangePoolJobForcedList([...response.exchangePoolJobForcedList]);
         setHistoricalPoolList([...response.historicalPoolList]);
         setHistoricalPoolJobList([...response.historicalPoolJobList]);
-        setWarningAdd("");
+        setWarningAdd('');
       }
     });
   }
@@ -216,14 +216,10 @@ function App() {
 
   useEffect(() => {
     setValueAddInError('');
-    setWarningAddType("success");
-    setWarningAdd('');
   }, [valueAddIn]);
 
   useEffect(() => {
     setValueAddOutError('');
-    setWarningAddType("success");
-    setWarningAdd('');
   }, [valueAddOut]);
 
   function addNewExchange(){
