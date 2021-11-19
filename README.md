@@ -13,6 +13,14 @@ In the project you will see 2 directories: **backend-java** and **frontend-react
 Enter into the **frontend-react** by the terminal and execute `npm start` to run the app.
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
+#### Host settings
+
+You can change settings the **API Host and Port** on the `environment.jsx`
+
+`const HOST = "http://192.168.1.7:";`
+
+`const PORT_API = "8080";`
+
 #### Dashboard
 
 In addition to the Currency Exchange Converter, a panel was implemented to visualize the data stored in Redis and its update schedules. Mouse over each panel block to see its description.
