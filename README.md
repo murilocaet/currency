@@ -2,6 +2,8 @@
 
 This project is about the creation of a Currency Exchange Converter using React as Front-end, Spring Boot JAVA as Backend, and Redis to store the data in cache.
 
+![React Front-end](https://github.com/murilocaet/cybercube-currency/blob/master/img-project.png?raw=true)
+
 ## Available Scripts
 
 In the project you will see 2 directories: **backend-java** and **frontend-react**
