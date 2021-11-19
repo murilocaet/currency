@@ -114,7 +114,7 @@ public class RateService {
     		
     		if(validateExchange(request.getFrom(), request.getTo())) {
     			String key = Useful.EXCHANGE_RATE.concat(request.getFrom())
-    					.concat("TO")
+    					.concat(Useful.TO)
     					.concat(request.getTo());
         		
         		List<String> exchangeList = findMap(Useful.EXCHANGE_POOL);
@@ -157,7 +157,7 @@ public class RateService {
     			request.getTo() != null && !request.getTo().isEmpty()) {
 				
 			key = Useful.EXCHANGE_RATE.concat(request.getFrom())
-					.concat("TO")
+					.concat(Useful.TO)
 					.concat(request.getTo());
 				
 			List<String> exchangeList = findMap(Useful.EXCHANGE_POOL);
@@ -191,7 +191,7 @@ public class RateService {
     
     public void refreshCurrencyExchangeData(String key) {
     	if(key != null && !key.isEmpty()) {
-    		String parts[] = key.split("::");
+    		String parts[] = key.split(Useful.SEPARATOR);
     		RateRequest request = RateRequest.builder()
 				.fromSymbol(parts[2].substring(0, 3))
     			.toSymbol(parts[2].substring(5, parts[2].length()))
@@ -238,11 +238,11 @@ public class RateService {
 				rateRequest.getRefRate() != null) {
     		
 				key = Useful.HISTORICAL_DATA.concat(rateRequest.getFromSymbol())
-						.concat("TO")
+						.concat(Useful.TO)
 						.concat(rateRequest.getToSymbol())
-						.concat("::")
+						.concat(Useful.SEPARATOR)
 						.concat(rateRequest.getFunctionRate().name())
-						.concat("::")
+						.concat(Useful.SEPARATOR)
 						.concat(rateRequest.getRefRate().name());
 				
 				List<String> historicalList = findMap(Useful.HISTORICAL_DATA_POOL);
@@ -353,7 +353,7 @@ public class RateService {
 	    	List<RateDTO> rateDtoList;
 	    	List<Rate> rateList = null;
 	    	
-	    	String parts[] = key.split("::");
+	    	String parts[] = key.split(Useful.SEPARATOR);
 	    	RateRequest rateRequest = RateRequest.builder()
 	    			.fromSymbol(parts[2].substring(0, 3))
 	    			.toSymbol(parts[2].substring(5, parts[2].length()))
@@ -425,10 +425,7 @@ public class RateService {
 			    			rateDtoList.add(rateDTO);
 		    			}
 					}
-		    		
-		//    		Comparator<RateDTO> comparator = Comparator.comparing(RateDTO::getKey);
-		//        	Collections.sort(rateDtoList, comparator);
-		    		
+		    				    		
 		    		response.setMin(min);
 		    		response.setMax(max);
 		    		response.setRates(rateDtoList);
@@ -693,7 +690,9 @@ public class RateService {
 					if(jsonObject.has("Note")) {
 						throw new Exception(jsonObject.getString("Note"));
 //						{
-//						    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if you would like to target a higher API call frequency."
+//						    "Note": "Thank you for using Alpha Vantage! Our standard API call frequency is 5 calls per 
+//									minute and 500 calls per day. Please visit https://www.alphavantage.co/premium/ if 
+//									you would like to target a higher API call frequency."
 //						}
 					}else {
 						throw new Exception("No records found!");

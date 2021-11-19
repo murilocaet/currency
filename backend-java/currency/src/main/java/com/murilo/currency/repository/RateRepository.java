@@ -52,12 +52,6 @@ public class RateRepository {
     	CurrencyExchange currencyExchange = (CurrencyExchange)hashOperations.get(key, "");
 		return currencyExchange;
     }
-
-    
-    public LinkedHashSet<String> findAllKeysByParam(String key) {
-    	LinkedHashSet<String> keys = (LinkedHashSet<String>)hashOperations.scan(key+"*", ScanOptions.NONE);
-		return keys;
-    }
     
     public List<Currency> findCurrencyData(String key) {
     	List<Currency> currency = (List<Currency>)hashOperations.values(key);

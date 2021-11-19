@@ -14,6 +14,9 @@ public class Useful {
 	public static final String HISTORICAL_DATA = "HISTORICAL::DATA::";
 	public static final String CURRENCIES = "CURRENCIES";
 
+	public static final String TO = "TO";
+	public static final String SEPARATOR = "::";
+
 	public static final String API_KEY = "BTJBTZU72FSKYQNY";
 	
 	
