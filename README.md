@@ -182,3 +182,42 @@ There are 5 Schedules tasks:
 **JobHistoricalSchedule**Consumes the historical update pool. Triggers the search for new historical rates and store them in Redis. Runs every 20 minutes.
 
 The queue will consume only one item per time, always the first, and will remove it from the list.
+
+## APIs used in this project
+
+**ALPHA VANTAGE API**, you can read more [at here](https://www.alphavantage.co/).
+Check out the [API Documentation](https://www.alphavantage.co/documentation/)
+
+**The simplest API for currency conversion**, you can read more [at here](https://www.currencyconverterapi.com/).
+Check out the [API Documentation](https://www.currencyconverterapi.com/docs)
+
+
+## Learn More
+
+You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+
+To learn React, check out the [React documentation](https://reactjs.org/).
+
+### Code Splitting
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+
+### Analyzing the Bundle Size
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+
+### Making a Progressive Web App
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+
+### Advanced Configuration
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+
+### Deployment
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+
+### `npm run build` fails to minify
+
+This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
