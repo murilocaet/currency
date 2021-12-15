@@ -8,23 +8,21 @@
 
 **1. Redis**
 
-**2. Bancos de dados: MongoDB ou MySQL**
+**2. Docker**
 
-**3. Docker**
+**3. Spring Boot**
 
-**4. Spring Boot**
+**4. ReactJS or AngularJS**
 
-**5. ReactJS ou AngularJS**
+**5. Nginx**
 
-**6. Nginx**
+**6. AWS**
 
-**7. AWS**
-
-**8. Balanceamento de carga**
+**7. Balanceamento de carga**
 
 **9. Terraform**
 
-**10. Swagger**
+**9. Swagger**
 
 
 
