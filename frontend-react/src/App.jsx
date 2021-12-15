@@ -154,12 +154,12 @@ function App() {
       findCurrencyExchangeRate(request)
       .then(response => {
         if(response !== undefined){
-          if(response.note !== null && response.note !== undefined || response.note !== ""){
+          if(response.note !== null && response.note !== undefined && response.note !== ""){
             setWarningAddType("error");
             setWarningAdd(response.note);
           }else if(response.currencyExchange !== undefined){
-              setExchangeRate(response.currencyExchange);
-              setExchangeRateDate(response.currencyExchange.lastRefreshed);
+            setExchangeRate(response.currencyExchange);
+            setExchangeRateDate(response.currencyExchange.lastRefreshed);
           }
         }
       });
