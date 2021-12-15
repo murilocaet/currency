@@ -1,0 +1,205 @@
+{
+	"info": {
+		"_postman_id": "e9359eb6-613b-4408-8680-1ba36a19c0c7",
+		"name": "Currency",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "findCurrencyData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8081/api/rates/findCurrencyData",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"rates",
+						"findCurrencyData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "panelData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-34-227-142-123.compute-1.amazonaws.com:8081/api/rates/panelData",
+					"protocol": "http",
+					"host": [
+						"ec2-34-227-142-123",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"rates",
+						"panelData"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findCurrencyExchangeRate",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-34-227-142-123.compute-1.amazonaws.com:8081/api/rates/findCurrencyExchangeRate?from=USD&to=EUR",
+					"protocol": "http",
+					"host": [
+						"ec2-34-227-142-123",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"rates",
+						"findCurrencyExchangeRate"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "USD"
+						},
+						{
+							"key": "to",
+							"value": "EUR"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findHistoricalData",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://ec2-34-227-142-123.compute-1.amazonaws.com:8081/api/rates/findHistoricalData?functionRate=FX_INTRADAY&refRate=FIVE_MINUTES&from=USD&to=EUR",
+					"protocol": "http",
+					"host": [
+						"ec2-34-227-142-123",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"rates",
+						"findHistoricalData"
+					],
+					"query": [
+						{
+							"key": "functionRate",
+							"value": "FX_INTRADAY"
+						},
+						{
+							"key": "refRate",
+							"value": "FIVE_MINUTES"
+						},
+						{
+							"key": "from",
+							"value": "USD"
+						},
+						{
+							"key": "to",
+							"value": "EUR"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateExchange",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"from\": \"USD\",\r\n    \"to\": \"EUR\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-34-227-142-123.compute-1.amazonaws.com:8081/api/rates/updateExchange",
+					"protocol": "http",
+					"host": [
+						"ec2-34-227-142-123",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"rates",
+						"updateExchange"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "updateRates",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://ec2-34-227-142-123.compute-1.amazonaws.com:8081/api/rates?from=USD&to=BRL",
+					"protocol": "http",
+					"host": [
+						"ec2-34-227-142-123",
+						"compute-1",
+						"amazonaws",
+						"com"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"rates"
+					],
+					"query": [
+						{
+							"key": "from",
+							"value": "USD"
+						},
+						{
+							"key": "to",
+							"value": "BRL"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

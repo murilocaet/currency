@@ -1,0 +1,19 @@
+spring:
+  data:
+    application:
+      name: currency-java
+    redis:
+      #Host: localhost
+      Host: redis
+      Database: 0
+      Port: 6379
+      Password: Redis12345!
+      Timeout: 1000ms
+
+server:
+  port: 8081
+  compression:
+    enabled: true
+    mime-types: text/xml, text/css, text/javascript, application/json
+    min-response-size: 1024
+    excluded-user-agents: Mozilla/5.0

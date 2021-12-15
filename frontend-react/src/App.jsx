@@ -2,6 +2,7 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Moment from 'moment';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import {environment} from './environment';
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import CurrencyChart from "./components/currencyChart";
 import { findCurrencyData, findCurrencyExchangeRate, findHistoricalData, updateExchange, getPanelData } from "./service/service.api";
@@ -10,7 +11,6 @@ function App() {
   const [serie, setSerie] = useState(null);
   const [serieMax, setSerieMax] = useState(null);
   const [serieMin, setSerieMin] = useState(null);
-  // const [metaData, setMetaData] = useState(null);
 
   const [valueIn, setValueIn] = useState('');
   const [valueOut, setValueOut] = useState('');
@@ -41,7 +41,7 @@ function App() {
   
   const [refreshTime, setRefreshTime] = useState(10);
 
-  let publicAPI = "Public API >>>>> PUT http://your-server-host:8080/api/rate/rates?from=USD&to=BRL";
+  let publicAPI = "Public API >>>>> PUT "+ environment.getApi('rates') +"?from=USD&to=BRL";
 
   Moment.locale('en');
 
@@ -153,9 +153,14 @@ function App() {
       }
       findCurrencyExchangeRate(request)
       .then(response => {
-        if(response !== undefined && response.currencyExchange !== undefined){
-            setExchangeRate(response.currencyExchange);
-            setExchangeRateDate(response.currencyExchange.lastRefreshed);
+        if(response !== undefined){
+          if(response.note !== null && response.note !== undefined || response.note !== ""){
+            setWarningAddType("error");
+            setWarningAdd(response.note);
+          }else if(response.currencyExchange !== undefined){
+              setExchangeRate(response.currencyExchange);
+              setExchangeRateDate(response.currencyExchange.lastRefreshed);
+          }
         }
       });
     }
@@ -449,7 +454,7 @@ function App() {
               From
             </Col>
             <Col className="panel-sub-col-add" md={3}>
-              <input type="text" value={valueAddIn} onChange={e => setValueAddIn(e.target.value)} />
+              <input type="text" className={valueAddInError ? "error-input" : ""} value={valueAddIn} onChange={e => setValueAddIn(e.target.value)} />
             </Col>
             <Col className="panel-sub-col-add error" md={7}>
               {valueAddInError}
@@ -460,7 +465,7 @@ function App() {
               To
             </Col>
             <Col className="panel-sub-col-add" md={3}>
-              <input type="text" value={valueAddOut} onChange={e => setValueAddOut(e.target.value)} />
+              <input type="text" className={valueAddInError ? "error-input" : ""} value={valueAddOut} onChange={e => setValueAddOut(e.target.value)} />
             </Col>
             <Col className="panel-sub-col-add error" md={7}>
             {valueAddOutError}

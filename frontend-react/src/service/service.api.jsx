@@ -1,7 +1,7 @@
 import {environment} from '../environment';
 import axios from 'axios';
 
-const urlAPI = environment.getApi('rate');//http://localhost:8080/api/rate/findHistoricalData
+const urlAPI = environment.getApi('rates');
 
 export const findCurrencyData  = () => 
   axios.get(urlAPI + "/findCurrencyData" , environment.HEADER)
@@ -9,22 +9,46 @@ export const findCurrencyData  = () =>
   .catch(e => {});
 
 export const findHistoricalData  = (request) => 
-  axios.post(urlAPI + "/findHistoricalData" , JSON.stringify(request), environment.HEADER)
+  axios.get(urlAPI + "/findHistoricalData", 
+    { 
+      data: {}, 
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      params: { 
+        functionRate: request.functionRate,
+        refRate: request.refRate,
+        fromSymbol: request.fromSymbol,
+        toSymbol: request.toSymbol
+      }
+  })
   .then(({data}) => data)
   .catch(e => {});
 
 export const findCurrencyExchangeRate  = (request) => 
-  axios.post(urlAPI + "/findCurrencyExchangeRate" , JSON.stringify(request), environment.HEADER)
+  axios.get(urlAPI + "/findCurrencyExchangeRate", 
+    { 
+      data: {}, 
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      params: { 
+        from: request.from,
+        to: request.to
+      }
+  })
   .then(({data}) => data)
   .catch(e => {});
 
 export const updateExchange  = (request) => 
-  axios.post(urlAPI + "/updateExchange" , JSON.stringify(request), environment.HEADER)
+  axios.put(urlAPI + "/updateExchange" , JSON.stringify(request), environment.HEADER)
   .then(({data}) => data)
   .catch(e => {});
 
 export const updateExchange_Op2  = (request) => 
-  axios.put(urlAPI + "/rates" , JSON.stringify(request), {
+  axios.put(urlAPI, null, {
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
@@ -38,6 +62,6 @@ export const updateExchange_Op2  = (request) =>
   .catch(e => {});
 
 export const getPanelData  = () => 
-  axios.get(urlAPI + "/getPanelData" , environment.HEADER)
+  axios.get(urlAPI + "/panelData" , environment.HEADER)
   .then(({data}) => data)
   .catch(e => {});

@@ -1,0 +1,64 @@
+version: "3.8"
+services: 
+
+  swaggerapi:
+    image: swaggerapi/swagger-editor
+    container_name: swaggerapi
+    restart: always
+    ports:
+      - 8200:8080
+    networks:
+      - backserver
+
+  swaggerui:
+    image: swaggerapi/swagger-ui
+    container_name: swaggerui
+    restart: always
+    ports:
+      - 8100:8080
+    volumes:
+      - ./files/swagger/openapi.json:/spec/openapi.json
+    environment:
+      BASE_URL: /swagger
+      SWAGGER_JSON: /spec/openapi.json
+    networks:
+      - backserver
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    environment:
+       REDIS_PASSWORD: Redis12345!
+    ports:
+      - 6379:6379
+    networks:
+      - backserver
+  
+  backend:
+    image: mccosta/currency-java
+    container_name: backend
+    ports:
+      - 8081:8081
+    networks:
+      - backserver
+      - frontend
+    depends_on:
+      - 'redis'
+        
+  currency:
+    image: mccosta/currency
+    container_name: currency
+    ports:
+      - 80:80
+    volumes:
+      - ./files/front/default.conf:/etc/nginx/conf.d/default.conf
+    networks: 
+      - frontend
+    depends_on:
+      - 'backend'
+
+networks:
+  frontend:
+    driver: bridge
+  backserver:
+    driver: bridge
